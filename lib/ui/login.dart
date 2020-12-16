@@ -4,6 +4,8 @@ import 'package:medicare_superadmin/services/auth_service.dart';
 
 
 class LoginPage extends StatefulWidget {
+  static const String route = '/' ;
+
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -83,7 +85,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(

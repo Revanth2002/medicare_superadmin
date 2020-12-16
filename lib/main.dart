@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:medicare_superadmin/services/auth_service.dart';
 import 'package:medicare_superadmin/ui/dashboard.dart';
 import 'package:medicare_superadmin/ui/login.dart';
+
 
 //TODO adminhom ui/home ui/utlis authhelper/
 void main() async {
@@ -16,9 +16,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'User Based Auth',
+      title: 'Medicare Admin',
       //home: AdminHomePageMQ(),
-      home: MainScreen(),
+      home: Dashboard(),
     );
   }
 }
@@ -57,26 +57,7 @@ class MainScreen extends StatelessWidget {
   }
 }
 
-/*
-*
-//TODO adminhom ui/home ui/utlis authhelper/
-void main() async {
-  runApp(MyApp());
-}
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Medicare-SuperAdmin',
-      //home: AdminHomePageMQ(),
-      home: AuthService().handleAuth(),
-    );
-  }
-}
-
-*/
 
 
 
