@@ -1,0 +1,2 @@
+Issue 1 : SharedPreferences
+Issue 2 : Url Navigation
