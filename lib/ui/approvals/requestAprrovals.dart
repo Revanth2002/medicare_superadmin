@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:medicare_superadmin/helper/approvals.dart';
 import 'package:medicare_superadmin/services/database_services.dart';
+import 'package:medicare_superadmin/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Requests extends StatefulWidget {
@@ -12,13 +12,9 @@ class Requests extends StatefulWidget {
 
 class _RequestsState extends State<Requests> {
 
-  TextStyle title = GoogleFonts.quicksand(color: Colors.black,fontSize: 18,fontWeight: FontWeight.bold);
   bool hoveredCount = false;
-  bool hoverTile = false;
+
   var savedString = '';
-  TextStyle name = GoogleFonts.cairo(color: Colors.deepPurple,fontSize: 17,fontWeight: FontWeight.bold);
-  TextStyle sub = GoogleFonts.quicksand(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold);
-  TextStyle content = GoogleFonts.quicksand(color: Colors.black.withOpacity(0.7),fontSize: 14,fontWeight: FontWeight.bold);
 
   ScrollController _scrollController;
 
@@ -205,8 +201,7 @@ class _RequestsState extends State<Requests> {
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-
-                                         Row(
+                                          Row(
                                            mainAxisAlignment: MainAxisAlignment.start,
                                          children: [
                                            Expanded(
@@ -371,7 +366,7 @@ class _RequestsState extends State<Requests> {
                                                             Expanded(
                                                               flex:2,
                                                               child: RaisedButton(onPressed: () async {
-                                                                final data = {"qualification": snapshot.data.docs[i]["qualification"]};
+                                                                final data = {"qualification_file": snapshot.data.docs[i]["qualification"]};
                                                                 var url = snapshot.data.docs[i]["qualification"];
                                                                 await db.collection("users").doc(docId).collection("profile").doc("qualification").set(data);
                                                                 if (await canLaunch(url)) {
@@ -422,7 +417,9 @@ class _RequestsState extends State<Requests> {
                                                             FlatButton(
                                                                 child: Text("Reject",style: TextStyle(fontFamily: "CairoBold",color: Colors.red,fontWeight: FontWeight.bold),),
                                                                 onPressed: () async {
+                                                                  var docIdNo = DateTime.now().millisecondsSinceEpoch.toString();
                                                                   final details = {
+                                                                    "docIdNo" : docIdNo,
                                                                     "contact": snap['contact'],
                                                                     "experience":snap['experience'],
                                                                     "hospital":snap['hospital'],
@@ -432,6 +429,7 @@ class _RequestsState extends State<Requests> {
                                                                     "specialist" : snap["specialist"]
                                                                   };
                                                                   await _requestApprovals.addUser(docId, details);
+                                                                  await db.collection("users").doc(docId).update({'name':snap["name"],"docIdNo" : docIdNo,});
                                                                   await db.collection("users").doc(docId).update({"status":"rejected"});
                                                                  await _requestApprovals.deleteRequest(docId);
                                                                   Navigator.pop(context);
@@ -472,7 +470,10 @@ class _RequestsState extends State<Requests> {
                                                             FlatButton(
                                                                 child: Text("Approve",style: TextStyle(fontFamily: "CairoBold",color: Colors.green,fontWeight: FontWeight.bold),),
                                                                 onPressed: () async {
+                                                                  var docIdNo = DateTime.now().millisecondsSinceEpoch.toString();
+                                                                  print(docIdNo);
                                                                   final details = {
+                                                                    "docIdNo": docIdNo,
                                                                     "contact": snap['contact'],
                                                                     "experience":snap['experience'],
                                                                     "hospital":snap['hospital'],
@@ -482,6 +483,7 @@ class _RequestsState extends State<Requests> {
                                                                     "specialist" : snap["specialist"]
                                                                   };
                                                                   await _requestApprovals.addUser(docId, details);
+                                                                  await db.collection("users").doc(docId).update({'name':snap["name"],"docIdNo" : docIdNo,});
                                                                   await db.collection("users").doc(docId).update({"status":"approved"});
                                                                   await _requestApprovals.deleteRequest(docId);
                                                                   Navigator.pop(context);

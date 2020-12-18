@@ -17,8 +17,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Medicare Admin',
-      //home: AdminHomePageMQ(),
-      home: Dashboard(),
+      //home: Dashboard(),
+      home:MainScreen()
     );
   }
 }

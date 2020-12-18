@@ -37,6 +37,7 @@ dependencies:
   shared_preferences:
   shared_preferences_web:
   #decorator
+  auto_size_text:
   percent_indicator: ^2.1.8
   vertical_tabs:
   google_fonts:

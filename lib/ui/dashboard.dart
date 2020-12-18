@@ -4,6 +4,7 @@ import 'package:medicare_superadmin/services/auth_service.dart';
 import 'package:medicare_superadmin/ui/approvals/requestAprrovals.dart';
 import 'package:medicare_superadmin/ui/doctors/doctors.dart';
 import 'package:medicare_superadmin/ui/patients/patients.dart';
+import 'package:medicare_superadmin/ui/rejected/rejectedDoctors.dart';
 import 'package:medicare_superadmin/utils/colors.dart';
 import 'package:vertical_tabs/vertical_tabs.dart';
 
@@ -86,6 +87,17 @@ class _DashboardState extends State<Dashboard> with SingleTickerProviderStateMix
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Row(
                     children: [
+                      Expanded(child: Icon(Icons.cancel,size: 20,color: Colors.deepPurple)),
+                      Expanded(flex:3,child: Text("Rejected",style: style,)),
+                    ],
+                  ),
+                ),
+              ),
+              Tab(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Row(
+                    children: [
                       Expanded(child: Icon(Icons.person,size: 20,color: Colors.deepPurple)),
                       Expanded(flex:3,child: Text("Patient",style: style,)),
                     ],
@@ -96,7 +108,9 @@ class _DashboardState extends State<Dashboard> with SingleTickerProviderStateMix
           contents: <Widget>[
             Requests(),
             Doctor(),
+            RejectedDoctor(),
             Patients(),
+
             ],
         ),
       )
